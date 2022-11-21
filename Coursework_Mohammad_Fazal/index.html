@@ -17,7 +17,6 @@
     <script src="https://kit.fontawesome.com/a034fe5f30.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css">
 </head>
-<!-- test commit v1.3-->
 <body>
     <div id="app">
         <div class="header">
@@ -25,7 +24,7 @@
             <a v-if="page === 'products'" v-on:click="navigateTo('cart')">View Cart <sup>{{cartCount}}</a>
             <a v-if="page === 'checkout'" v-on:click="navigateTo('cart')">Back to Cart</a>
 
-            <button style="width: 30%;" v-if="page === 'cart'" v-on:click="checkoutCart">Checkout</button>
+            <button  style="width: 30%; color: black;" v-if="page === 'cart'" v-on:click="checkoutCart">Checkout</button>
         </div>
         <div>
             <div v-if="page === 'products'">
