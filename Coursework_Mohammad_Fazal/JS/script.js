@@ -51,7 +51,7 @@ const app = new Vue({
       )
       this.products.forEach((item) => {
         if (item.id === product.id) {
-          item.space -= 1;
+          item.quantity -= 1;
         }
       }
       )
@@ -75,7 +75,7 @@ const app = new Vue({
       )
       this.products.forEach((item) => {
         if (item.id === product.id) {
-          item.space += 1;
+          item.quantity += 1;
         }
       }
       )
@@ -86,8 +86,8 @@ const app = new Vue({
       console.log(this.page);
     },
 
-    spaceCount(product) {
-      if (product.space > 0) {
+    quantityCount(product) {
+      if (product.quantity > 0) {
         return true;
       } else {
         return false;
@@ -107,21 +107,14 @@ const app = new Vue({
           method: 'Home',
           gift: false,
         };
-        Swal.fire(
-          'Order Submitted!',
-          'Your order has been submitted!',
-          'success'
-        )
+        alert("Order submitted");
         this.cart = [];
         this.navigateTo('products');
       } else {
-        Swal.fire(
-          'Missing Fields?',
-          'Please Make Sure all fields are filled out',
-          'error'
-        )
+        alert("Please fill all the text boxes");
         this.page = 'checkout';
       }
+      
     },
 
     checkoutCart() {
@@ -163,12 +156,12 @@ const app = new Vue({
           }
         });
       }
-      else if (this.sortBy === 'space') {
+      else if (this.sortBy === 'quantity') {
         return this.products.sort((a, b) => {
           if (this.sortDirection === 'asc') {
-            return a.space - b.space;
+            return a.quantity - b.quantity;
           } else if (this.sortDirection === 'desc') {
-            return b.space - a.space;
+            return b.quantity - a.quantity;
           }
         });
       }
