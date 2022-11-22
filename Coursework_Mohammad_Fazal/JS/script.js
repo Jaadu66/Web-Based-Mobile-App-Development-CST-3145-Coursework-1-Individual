@@ -1,6 +1,7 @@
 const app = new Vue({
   el: '#app',
   data: () => {
+    //datasets
     return {
       page: 'products',
       cart: [],
@@ -19,6 +20,7 @@ const app = new Vue({
         method: 'Home',
         gift: false,
       },
+      //Drop down list for the states
       states: {
         AUH: 'Abu Dhabi',
         AJM: 'Ajman',
@@ -33,7 +35,9 @@ const app = new Vue({
   },
 
   methods: {
+    //Pushes product to the cart
     addToCart(product) {
+      //Child pushes component to the parent
       this.$emit("addItemToCart", product);
       console.log(product.id);
       if (!this.cart.includes(product)) {
@@ -44,11 +48,8 @@ const app = new Vue({
       product.cartquantity++;
 
 
-      Swal.fire(
-        'Added to Cart!',
-        (product.subject + ' has been added to your cart!'),
-        'success'
-      )
+      
+      //Minus quantity from the total
       this.products.forEach((item) => {
         if (item.id === product.id) {
           item.quantity -= 1;
@@ -60,6 +61,7 @@ const app = new Vue({
 
     removeFromCart(product) {
       console.log("Removed product  " + product.id);
+      //Remove the product all together from the cart if its less than 1
       if (product.cartquantity === 1) {
         this.cart.splice(product, 1);
         product.cartquantity = 0;
@@ -68,11 +70,8 @@ const app = new Vue({
         product.cartquantity--;
         console.log("cartquantity: " + product.cartquantity);
       }
-      Swal.fire(
-        'Removed from Cart!',
-        (product.subject + ' has been removed from your cart!'),
-        'warning'
-      )
+
+      //increase the quantity of the products in inventory
       this.products.forEach((item) => {
         if (item.id === product.id) {
           item.quantity += 1;
@@ -95,9 +94,11 @@ const app = new Vue({
     },
 
     onSubmitCheckout: function () {
+      //Condition to check if all the fields are filled
       if (this.order.name && this.order.phone && this.order.address && this.order.city && this.order.zip && this.order.state) {
         this.checkout.push(this.order);
         this.order = {
+          //Clears all the text boxes on button click
           name: '',
           phone: '',
           address: '',
@@ -107,10 +108,12 @@ const app = new Vue({
           method: 'Home',
           gift: false,
         };
+        //Confirmation dialogue
         alert("Order submitted");
         this.cart = [];
         this.navigateTo('products');
       } else {
+        
         alert("Please fill all the text boxes");
         this.page = 'checkout';
       }
@@ -137,7 +140,7 @@ const app = new Vue({
 
         })
       }
-
+      //This block sorts the products according to subject
       else if (this.sortBy === 'subject') {
         return this.products.sort((a, b) => {
           if (this.sortDirection === 'asc') {
@@ -147,6 +150,7 @@ const app = new Vue({
           }
         })
       }
+      //This block sorts the products according to price
       else if (this.sortBy === 'price') {
         return this.products.sort((a, b) => {
           if (this.sortDirection === 'asc') {
@@ -156,6 +160,7 @@ const app = new Vue({
           }
         });
       }
+      //This block sorts the products according to quantity
       else if (this.sortBy === 'quantity') {
         return this.products.sort((a, b) => {
           if (this.sortDirection === 'asc') {
@@ -165,11 +170,13 @@ const app = new Vue({
           }
         });
       }
+      //Return products as it is if no filter
       else {
         return this.products;
       }
     },
 
+    //Method to take sum of the products added in cart
     cartTotal() {
       let total = 0;
       this.cart.forEach((item) => {
@@ -179,6 +186,7 @@ const app = new Vue({
       return total;
     },
 
+   
     cartCount() {
       let count = 0;
       this.cart.forEach((item) => {
@@ -192,4 +200,3 @@ const app = new Vue({
 
 
 });
-
