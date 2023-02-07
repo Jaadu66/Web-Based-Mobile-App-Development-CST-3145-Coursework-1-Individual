@@ -4,6 +4,8 @@ var cacheFiles=[
     'JS/products.js',
     'JS/script.js',
     'CSS/style.css',
+    'img/icon.png',
+    'img/arabic.jpg',
     'onlineacademy.manifest',
     'img'
 
